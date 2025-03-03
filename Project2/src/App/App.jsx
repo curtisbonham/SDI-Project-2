@@ -16,18 +16,16 @@ function App() {
         let objIds = data.objectIDs
         let homeImages = []
         while (imageArray.length < 26) {
-          let imageArrayIndex= Math.random() * (data.total - 0 + 1))
+          let imageArrayIndex= Math.random() * (data.total - 0 + 1)
           fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${objIds[imageArrayIndex]}`)
             .then(res => res.json())
             .then(data => {
               if(data.primaryImage){
                 homeImages.push(data)
-              } continue
+              } 
               return homeImages
-            }
-          )
+            })
         }
-      
   })
   }, [])
 

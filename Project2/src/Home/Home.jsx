@@ -3,7 +3,7 @@ import './Home.css';
 
 export default function Home({value}) {
 let homeItemArray = value.imageArray.slice(0,24);
-
+console.log(homeItemArray);
 
 return (
 

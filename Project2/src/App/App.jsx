@@ -8,26 +8,36 @@ import Details from '../Details/Details.jsx'
 
 function App() {
   const [imageArray, setImageArray] = useState([])
+  const value = {imageArray}
 
-  useEffect (() => {
-    fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects')
+  useEffect(() => {
+    fetch("https://collectionapi.metmuseum.org/public/collection/v1/objects")
       .then(res => res.json())
       .then(data => {
-        let objIds = data.objectIDs
-        let homeImages = []
-        while (imageArray.length < 26) {
-          let imageArrayIndex= Math.random() * (data.total - 0 + 1)
-          fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${objIds[imageArrayIndex]}`)
-            .then(res => res.json())
-            .then(data => {
-              if(data.primaryImage){
-                homeImages.push(data)
-              } 
-              return homeImages
-            })
+        let objIds = data.objectIDs;
+        let homeImageIndex = [];
+
+        for (let i = 0; i < 100; i++) {
+          let imageArrayIndex= Math.floor(Math.random() * (data.total - 0 + 1))
+          homeImageIndex.push(imageArrayIndex);
         }
-  })
-  }, [])
+
+        return Promise.all(
+          homeImageIndex.map(i =>
+            fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${objIds[i]}`)
+              .then(res => res.json())
+          )
+        );
+      })
+      .then(results => {
+        let filteredImages = results.filter(obj => obj.primaryImage !== ""); // Filter out empty images
+        setImageArray(filteredImages); // Update state
+      })
+      .catch(error => console.error("Error fetching object details:", error));
+  }, []); // Run once on mount
+
+  console.log(imageArray)
+  // console.log(imageArray)
 
   return (
     <>
@@ -38,7 +48,7 @@ function App() {
       </div>
 
       <Routes>
-        <Route path='/' element={<Home />}/>
+        <Route path='/' element={<Home value={value} />}/>
         <Route path='/details/:id' element={<Details />}/>
         <Route path='/layout' element={<Layout />}/>
         <Route path='/saved' element={<Saved />}/>

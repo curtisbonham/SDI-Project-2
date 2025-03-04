@@ -37,11 +37,13 @@ function App() {
         setImageArray(filteredImages);
       })
       .catch(error => console.error("Error fetching object details:", error));
+
   }, []);
 
   return (
     <>
     <DetailsContext.Provider value={value}>
+    <h1 className='header'>Desmond Takes the Met</h1>
     <div className='navbar'>
         <Link to='/'><button>Home</button></Link>
         <Link to='/layout'><button>Layout</button></Link>

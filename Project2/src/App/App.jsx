@@ -5,10 +5,13 @@ import Home from "../Home/Home.jsx";
 import Layout from '../Layout/Layout.jsx'
 import Saved from '../Saved/Saved.jsx'
 import Details from '../Details/Details.jsx'
+import DetailsContext from '../DetailsContext.jsx'
 
 function App() {
   const [imageArray, setImageArray] = useState([])
-  const value = {imageArray}
+  const [detailImage, setDetailImage] = useState('')
+  const [details, setDetails] = useState([])
+  const value = {imageArray, setImageArray, detailImage, setDetailImage, details, setDetails}
 
   useEffect(() => {
     fetch("https://collectionapi.metmuseum.org/public/collection/v1/objects")
@@ -30,30 +33,29 @@ function App() {
         );
       })
       .then(results => {
-        let filteredImages = results.filter(obj => obj.primaryImage !== ""); // Filter out empty images
-        setImageArray(filteredImages); // Update state
+        let filteredImages = results.filter(obj => obj.primaryImage !== "");
+        setImageArray(filteredImages);
       })
       .catch(error => console.error("Error fetching object details:", error));
-  }, []); // Run once on mount
 
-  //console.log(imageArray)
+  }, []);
 
   return (
     <>
-      <h1 className='header'>Desmond Takes the Met</h1>
-
-      <div className='navbar'>
-        <Link to='/'><button className='nav-btn'>Home</button></Link>
-        <Link to='/layout'><button className='nav-btn'>Layout</button></Link>
-        <Link to='/saved'><button className='nav-btn'>Saved</button></Link>
+    <DetailsContext.Provider value={value}>
+    <h1 className='header'>Desmond Takes the Met</h1>
+    <div className='navbar'>
+        <Link to='/'><button>Home</button></Link>
+        <Link to='/layout'><button>Layout</button></Link>
+        <Link to='/saved'><button>Saved</button></Link>
       </div>
-
-      <Routes className='routes'>
+      <Routes>
         <Route path='/' element={<Home value={value} />}/>
         <Route path='/details/:id' element={<Details />}/>
         <Route path='/layout' element={<Layout />}/>
         <Route path='/saved' element={<Saved />}/>
       </Routes>
+    </DetailsContext.Provider>
 
     </>
   )

@@ -36,18 +36,19 @@ function App() {
       .catch(error => console.error("Error fetching object details:", error));
   }, []); // Run once on mount
 
-  console.log(imageArray)
-  // console.log(imageArray)
+  //console.log(imageArray)
 
   return (
     <>
+      <h1 className='header'>Desmond Takes the Met</h1>
+
       <div className='navbar'>
-        <Link to='/'><button>Home</button></Link>
-        <Link to='/layout'><button>Layout</button></Link>
-        <Link to='/saved'><button>Saved</button></Link>
+        <Link to='/'><button className='nav-btn'>Home</button></Link>
+        <Link to='/layout'><button className='nav-btn'>Layout</button></Link>
+        <Link to='/saved'><button className='nav-btn'>Saved</button></Link>
       </div>
 
-      <Routes>
+      <Routes className='routes'>
         <Route path='/' element={<Home value={value} />}/>
         <Route path='/details/:id' element={<Details />}/>
         <Route path='/layout' element={<Layout />}/>

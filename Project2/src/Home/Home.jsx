@@ -20,18 +20,14 @@ return (
               src={element.primaryImage}
               alt={element.objectName}
                 key={i}
-                height='200px'
-                ></img>
+                height='200px'/>
               <p><b>Title:</b> {element.title} <br/>
                <b>Artist Name:</b> {element.artistDisplayName == ''? 'Unknown Artist' : element.artistDisplayName}</p>
-
           </div>
           </Link>
           </div>
-
         )
       })}
-
     </div>
   </>
   )

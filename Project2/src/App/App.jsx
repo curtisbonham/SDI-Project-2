@@ -76,10 +76,10 @@ function App() {
       </Link>
     </nav>
 
-    {/* ✅ Full Sidebar (Expanded Navigation) */}
+
     <nav className="sidebar">
       <div className="sidebar-header">
-        <h2>Navigation</h2> {/* ✅ Sidebar title */}
+        <h2>Navigation</h2> {/* Sidebar title */}
       </div>
       <div className="sidebar-content">
         {/* Home Navigation Link (Closes Sidebar on Click) */}

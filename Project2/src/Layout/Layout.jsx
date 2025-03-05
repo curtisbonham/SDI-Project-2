@@ -10,7 +10,7 @@ const ItemTypes = {
 };
 
 // Draggable Image Component
-const DraggableImage = ({ id, src, onDelete }) => {
+const DraggableImage = ({ id, src, height, onDelete }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.IMAGE,
     item: { id },
@@ -19,6 +19,8 @@ const DraggableImage = ({ id, src, onDelete }) => {
     }),
   }));
 
+  console.log("Height: ", height);
+
   return (
     <div className='dragable-el'>
       <button className='remove-btn' onClick={()=> onDelete(id)}>x</button>
@@ -26,13 +28,16 @@ const DraggableImage = ({ id, src, onDelete }) => {
         ref={drag}
         src={src}
         alt=""
+        style={
+          height={height}
+        }
       />
       </div>
   );
 };
 
 // Droppable Grid Cell Component
-const DroppableCell = ({ index, image, onDrop}) => {
+const DroppableCell = ({ index, image, onDrop, onDelete}) => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ItemTypes.IMAGE,
     drop: (item) => onDrop(item.id, index),
@@ -44,7 +49,12 @@ const DroppableCell = ({ index, image, onDrop}) => {
   return (
     <div className='droppable-cell'
       ref={drop}>
-      {image && <DraggableImage id={image.objectID} src={image.primaryImage} />}
+      {image && <DraggableImage
+      id={image.objectID}
+      src={image.primaryImage}
+      height={image.measurements[0].elementMeasurements.Height == undefined? 100 : image.measurements[0].elementMeasurements.Height * 10}
+      onDelete={onDelete}
+      />}
     </div>
   );
 };
@@ -80,9 +90,10 @@ const DragDropGrid = () => {
   const handleDelete = (id) => {
    setGrid((prevGrid)=> {
     const newGrid = [...prevGrid]
-    const index = newGrid.find((img) => img && img.objectID == id)
+    let matchingImage = newGrid.find((img) => img && img.objectID == id)
+    let index = newGrid.indexOf(matchingImage)
     if(index !== -1) {
-      newGrid[index] = null;
+    newGrid[index] = null;
     }
     return newGrid
   })
@@ -90,16 +101,19 @@ const DragDropGrid = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
+      <h3>Saved Pieces</h3>
       <div className='image-hold'>
         {images.map((image) => (
           <DraggableImage
           key={image.objectID}
           id={image.objectID}
           src={image.primaryImage}
+          height = {image.measurements[0].elementMeasurements.Height == undefined? 100 : image.measurements[0].elementMeasurements.Height * 10}
           onDelete={handleDelete}
           />
           ))}
       </div>
+      <h3>Gallery Wall</h3>
       <div className='grid-container' >
         {grid.map((image, index) => (
           <DroppableCell

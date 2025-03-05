@@ -42,72 +42,87 @@ function App() {
   }, []);
 
   return (
-    <DetailsContext.Provider value={value}>
-      <div className="app-container">
-        {/* Checkbox for drawer toggle */}
-        <input type="checkbox" id="nav-toggle" />
+<DetailsContext.Provider value={value}>
 
-        {/* Header */}
-        <header className="header">
-          <label htmlFor="nav-toggle" className="nav-toggle-label">
-            <span className="hamburger"></span>
-          </label>
-          <h1>Met Gallery</h1>
-        </header>
+  <div className="app-container">
 
-        {/* Sidebar Overlay */}
-        <div className="sidebar-overlay"></div>
 
-        {/* Sidebar Navigation */}
-        <nav className="sidebar">
-          <div className="sidebar-header">
-            <h2>Navigation</h2>
-          </div>
-          <div className="sidebar-content">
-            <Link
-              to="/"
-              className={location.pathname === "/" ? "active" : ""}
-              onClick={() =>
-                (document.getElementById("nav-toggle").checked = false)
-              }
-            >
-              <span className="nav-icon">🏠</span>
-              Home
-            </Link>
-            <Link
-              to="/layout"
-              className={location.pathname === "/layout" ? "active" : ""}
-              onClick={() =>
-                (document.getElementById("nav-toggle").checked = false)
-              }
-            >
-              <span className="nav-icon">📱</span>
-              Layout
-            </Link>
-            <Link
-              to="/saved"
-              className={location.pathname === "/saved" ? "active" : ""}
-              onClick={() =>
-                (document.getElementById("nav-toggle").checked = false)
-              }
-            >
-              <span className="nav-icon">⭐</span>
-              Saved Items
-            </Link>
-          </div>
-        </nav>
+    <input type="checkbox" id="nav-toggle" />
 
-        {/* Main Content */}
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home value={value} />} />
-            <Route path="/details/:id" element={<Details />} />
-            <Route path="/layout" element={<Layout />} />
-            <Route path="/saved" element={<Saved />} />
-          </Routes>
-        </main>
+
+    <header className="header">
+
+      <label htmlFor="nav-toggle" className="nav-toggle-label">
+        <span className="hamburger"></span> {/* Hamburger menu icon */}
+      </label>
+      <h1>Met Gallery</h1>
+    </header>
+
+
+    <nav className="icon-sidebar">
+
+      <Link to="/" className={location.pathname === "/" ? "active" : ""}>
+        <span className="nav-icon">🏠</span>
+      </Link>
+
+
+      <Link to="/layout" className={location.pathname === "/layout" ? "active" : ""}>
+        <span className="nav-icon">📱</span>
+      </Link>
+
+
+      <Link to="/saved" className={location.pathname === "/saved" ? "active" : ""}>
+        <span className="nav-icon">⭐</span>
+      </Link>
+    </nav>
+
+    {/* ✅ Full Sidebar (Expanded Navigation) */}
+    <nav className="sidebar">
+      <div className="sidebar-header">
+        <h2>Navigation</h2> {/* ✅ Sidebar title */}
       </div>
-    </DetailsContext.Provider>
+      <div className="sidebar-content">
+        {/* Home Navigation Link (Closes Sidebar on Click) */}
+        <Link
+          to="/"
+          className={location.pathname === "/" ? "active" : ""}
+          onClick={() => (document.getElementById("nav-toggle").checked = false)}
+        >
+          <span className="nav-icon">🏠</span> Home
+        </Link>
+
+        {/* Layout Navigation Link */}
+        <Link
+          to="/layout"
+          className={location.pathname === "/layout" ? "active" : ""}
+          onClick={() => (document.getElementById("nav-toggle").checked = false)}
+        >
+          <span className="nav-icon">📱</span> Layout
+        </Link>
+
+        {/* Saved Items Navigation Link */}
+        <Link
+          to="/saved"
+          className={location.pathname === "/saved" ? "active" : ""}
+          onClick={() => (document.getElementById("nav-toggle").checked = false)}
+        >
+          <span className="nav-icon">⭐</span> Saved Items
+        </Link>
+      </div>
+    </nav>
+
+    <main className="main-content">
+      <Routes>
+        <Route path="/" element={<Home value={value} />} />
+        <Route path="/details/:id" element={<Details />} />
+        <Route path="/layout" element={<Layout />} />
+        <Route path="/saved" element={<Saved />} />
+      </Routes>
+    </main>
+
+  </div>
+</DetailsContext.Provider>
+
   );
 }
 

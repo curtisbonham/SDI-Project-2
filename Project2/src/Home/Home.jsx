@@ -9,7 +9,7 @@ let homeItemArray = value.imageArray.slice(0,24);<select name="" id=""></select>
 return (
 
   <>
-    <h3 className='home-header'>Home</h3>
+    <h3 className='home-header'></h3>
     <div className= 'gallery-container'>
       {homeItemArray?.map((element, i) => {
         return (

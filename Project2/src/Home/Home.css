@@ -1,28 +1,192 @@
-.gallery-container {
-  font-family: "Copperplate";
+.home-layout {
   display: flex;
-  flex-wrap: wrap;
-  margin: 2rem;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.gallery-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  padding: 30px;
+  margin-right: 300px; /* Space for sidebar */
+  font-family: "Copperplate";
 }
 
 .card-container {
   display: flex;
   flex-direction: column;
-  max-width: 400px;
+  width: 100%;
+  height: 100%;
   align-items: center;
-  margin: 30px;
-  box-shadow: 5px 5px 5px 5px rgb(0 0 0/20%);
   padding: 15px;
-  background: linear-gradient(white 0%, aliceblue 100%);
-  overflow: scroll;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.card-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-container img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .card-container p {
-  text-align: center;
+  width: 100%;
+  text-align: left;
+  padding: 15px 0;
+  margin: 0;
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.title {
+  text-transform: none;
 }
 
 .home-header {
-  font-family: 'Copperplate';
+  font-family: "Copperplate";
   font-size: 30px;
-  margin-left: 60px;
+  padding: 20px 30px;
+  margin: 0;
+  color: #333;
+}
+
+.browse-more-container {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.browse-more-button {
+  background-color: #f0f2f5;
+  color: #333;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: "Copperplate";
+  font-size: 1rem;
+}
+
+.browse-more-button:hover {
+  background-color: #e2e6ea;
+  transform: translateY(-2px);
+}
+
+/* Right Sidebar - Modern Style */
+.right-sidebar {
+  width: 280px;
+  background: white;
+  padding: 25px;
+  position: fixed;
+  right: 20px;
+  top: 80px;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.right-sidebar h3 {
+  color: #333;
+  font-size: 1.2rem;
+  margin: 0 0 20px 0;
+  text-align: center;
+  font-family: "Copperplate";
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.department-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#department-button {
+  padding: 12px 15px;
+  background: #f8f9fa;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  color: #555;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  font-family: "Copperplate";
+}
+
+.department-button:hover {
+  background: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+.department-button.active {
+  background: #fff;
+  color: #333;
+  border-color: #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-weight: 500;
+}
+
+/* Custom scrollbar for sidebar */
+.right-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.right-sidebar::-webkit-scrollbar-track {
+  background: #f8f9fa;
+}
+
+.right-sidebar::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 2px;
+}
+
+.right-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #ccc;
+}
+
+/* Loading state */
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  font-family: "Copperplate";
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #eee;
+  border-top-color: #333;
+  border-radius: 50%;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

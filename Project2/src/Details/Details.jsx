@@ -59,6 +59,10 @@ return (
           <strong>Repository:</strong>{" "}
           {details.repository || "Unknown Repository"}
         </p>
+        <p>
+          <strong>Genre:</strong>{" "}
+          {details.department || "Unknown Genre"}
+        </p>
       </div>
     </div>
   </div>

@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import SavedContext from '../SavedContext.jsx';
+import './Layout.css';
 
 // Define the type for draggable items
 const ItemTypes = {
@@ -8,7 +10,7 @@ const ItemTypes = {
 };
 
 // Draggable Image Component
-const DraggableImage = ({ id, src }) => {
+const DraggableImage = ({ id, src, onDelete }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.IMAGE,
     item: { id },
@@ -18,22 +20,19 @@ const DraggableImage = ({ id, src }) => {
   }));
 
   return (
-    <img
-      ref={drag}
-      src={src}
-      alt=""
-      style={{
-        width: 100,
-        height: 100,
-        opacity: isDragging ? 0.5 : 1,
-        cursor: "grab",
-      }}
-    />
+    <div className='dragable-el'>
+      <button className='remove-btn' onClick={()=> onDelete(id)}>x</button>
+      <img className='dragable-image'
+        ref={drag}
+        src={src}
+        alt=""
+      />
+      </div>
   );
 };
 
 // Droppable Grid Cell Component
-const DroppableCell = ({ index, image, onDrop }) => {
+const DroppableCell = ({ index, image, onDrop}) => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ItemTypes.IMAGE,
     drop: (item) => onDrop(item.id, index),
@@ -43,61 +42,72 @@ const DroppableCell = ({ index, image, onDrop }) => {
   }));
 
   return (
-    <div
-      ref={drop}
-      style={{
-        width: 100,
-        height: 100,
-        border: "1px solid black",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: isOver ? "lightgray" : "white",
-      }}
-    >
-      {image && <DraggableImage id={image.id} src={image.src} />}
+    <div className='droppable-cell'
+      ref={drop}>
+      {image && <DraggableImage id={image.objectID} src={image.primaryImage} />}
     </div>
   );
 };
 
 // Main Grid Component
 const DragDropGrid = () => {
-  const [images, setImages] = useState([
-    { id: 1, src: "https://via.placeholder.com/100" },
-    { id: 2, src: "https://via.placeholder.com/100" },
-  ]);
+  const[images, setImages] = useState([]);
 
-  const [grid, setGrid] = useState(Array(9).fill(null));
+  if (images.length == 0) {
+    setImages(mockData);
+  }
+
+  // const [images, setImages] = useContext(
+  // SavedContext
+  // );
+
+  const [grid, setGrid] = useState(Array(2000).fill(null));
 
   const handleDrop = (imageId, index) => {
-    const draggedImage = images.find((img) => img.id === imageId);
+    const draggedImage = images.find((img) => img.objectID === imageId);
     if (draggedImage) {
-      const newGrid = [...grid];
-      newGrid[index] = draggedImage;
-      setGrid(newGrid);
+      setGrid((prevGrid) => {
+      const newGrid = [...prevGrid];
+      let matchingImage = newGrid.find((image) =>  image == draggedImage )
+      if (matchingImage)
+       {newGrid.splice(newGrid.indexOf(matchingImage), 1, null)}
+        newGrid[index] = draggedImage;
+      return newGrid;
+    });
     }
   };
 
+  const handleDelete = (id) => {
+   setGrid((prevGrid)=> {
+    const newGrid = [...prevGrid]
+    const index = newGrid.find((img) => img && img.objectID == id)
+    if(index !== -1) {
+      newGrid[index] = null;
+    }
+    return newGrid
+  })
+  }
+
   return (
     <DndProvider backend={HTML5Backend}>
-      <div style={{ display: "flex", gap: 10, marginBottom: 20 }}>
+      <div className='image-hold'>
         {images.map((image) => (
-          <DraggableImage key={image.id} id={image.id} src={image.src} />
-        ))}
+          <DraggableImage
+          key={image.objectID}
+          id={image.objectID}
+          src={image.primaryImage}
+          onDelete={handleDelete}
+          />
+          ))}
       </div>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 100px)",
-          gap: 5,
-        }}
-      >
+      <div className='grid-container' >
         {grid.map((image, index) => (
           <DroppableCell
             key={index}
             index={index}
             image={image}
             onDrop={handleDrop}
+            onDelete={handleDelete}
           />
         ))}
       </div>
@@ -109,47 +119,7 @@ export default DragDropGrid;
 
 let mockData = [{
   "objectID": 405040,
-  "isHighlight": false,
-  "accessionNumber": "63.350.215.171.84",
-  "accessionYear": "1963",
-  "isPublicDomain": true,
   "primaryImage": "https://images.metmuseum.org/CRDImages/dp/original/DP846643.jpg",
-  "primaryImageSmall": "https://images.metmuseum.org/CRDImages/dp/web-large/DP846643.jpg",
-  "additionalImages": [],
-  "constituents": [
-      {
-          "constituentID": 163285,
-          "role": "Publisher",
-          "name": "Issued by Goodwin &amp; Company",
-          "constituentULAN_URL": "(not assigned)",
-          "constituentWikidata_URL": "https://www.wikidata.org/wiki/Q5583666",
-          "gender": ""
-      }
-  ],
-  "department": "Drawings and Prints",
-  "objectName": "Photograph",
-  "title": "Annie Somerville, from the Actors and Actresses series (N171) for Old Judge Cigarettes",
-  "culture": "",
-  "period": "",
-  "dynasty": "",
-  "reign": "",
-  "portfolio": "",
-  "artistRole": "Publisher",
-  "artistPrefix": "Issued by",
-  "artistDisplayName": "Goodwin & Company",
-  "artistDisplayBio": "",
-  "artistSuffix": "",
-  "artistAlphaSort": "Goodwin & Company",
-  "artistNationality": "",
-  "artistBeginDate": "1850",
-  "artistEndDate": "1950",
-  "artistGender": "",
-  "artistWikidata_URL": "https://www.wikidata.org/wiki/Q5583666",
-  "artistULAN_URL": "(not assigned)",
-  "objectDate": "1886–90",
-  "objectBeginDate": 1886,
-  "objectEndDate": 1890,
-  "medium": "Albumen photograph",
   "dimensions": "sheet: 2 11/16 x 1 3/8 in. (6.9 x 3.5 cm)",
   "measurements": [
       {

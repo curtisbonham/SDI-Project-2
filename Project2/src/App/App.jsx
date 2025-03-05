@@ -6,6 +6,7 @@ import Layout from '../Layout/Layout.jsx'
 import Saved from '../Saved/Saved.jsx'
 import Details from '../Details/Details.jsx'
 import DetailsContext from '../DetailsContext.jsx'
+import SavedContext from '../SavedContext.jsx'
 
 function App() {
   const [imageArray, setImageArray] = useState([])
@@ -42,21 +43,22 @@ function App() {
 
   return (
     <>
-    <DetailsContext.Provider value={value}>
-    <h1 className='header'>Desmond Takes the Met</h1>
-    <div className='navbar'>
-        <Link to='/'><button>Home</button></Link>
-        <Link to='/layout'><button>Layout</button></Link>
-        <Link to='/saved'><button>Saved</button></Link>
-      </div>
-      <Routes>
-        <Route path='/' element={<Home value={value} />}/>
-        <Route path='/details/:id' element={<Details />}/>
-        <Route path='/layout' element={<Layout />}/>
-        <Route path='/saved' element={<Saved />}/>
-      </Routes>
-    </DetailsContext.Provider>
-
+      <SavedContext.Provider value={value}>
+      <DetailsContext.Provider value={value}>
+      <h1 className='header'>Desmond Takes the Met</h1>
+      <div className='navbar'>
+          <Link to='/'><button>Home</button></Link>
+          <Link to='/layout'><button>Layout</button></Link>
+          <Link to='/saved'><button>Saved</button></Link>
+        </div>
+        <Routes>
+          <Route path='/' element={<Home value={value} />}/>
+          <Route path='/details/:id' element={<Details />}/>
+          <Route path='/layout' element={<Layout />}/>
+          <Route path='/saved' element={<Saved />}/>
+        </Routes>
+      </DetailsContext.Provider>
+      </SavedContext.Provider>
     </>
   )
 }

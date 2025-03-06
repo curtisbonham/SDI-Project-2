@@ -13,7 +13,22 @@ function App() {
   const [detailImage, setDetailImage] = useState('')
   const [details, setDetails] = useState([])
   const [departments, setDepartments] = useState([])
-  const value = {imageArray, setImageArray, detailImage, setDetailImage, details, setDetails, departments, setDepartments}
+  const [departmentData, setDepartmentData] = useState([])
+  // const [selectedDepartment, setSelectedDepartment] = useState(null);
+  const value = {
+    imageArray,
+    setImageArray,
+    detailImage,
+    setDetailImage,
+    details,
+    setDetails,
+    departments,
+    setDepartments,
+    departmentData,
+    setDepartmentData,
+    // selectedDepartment,
+    // setSelectedDepartment
+  }
 
 
   useEffect(() => {
@@ -23,7 +38,7 @@ function App() {
         let objIds = data.objectIDs;
         let homeImageIndex = [];
 
-        for (let i = 0; i < 300; i++) {
+        for (let i = 0; i < 150; i++) {
           let imageArrayIndex= Math.floor(Math.random() * (data.total - 0 + 1))
           homeImageIndex.push(imageArrayIndex);
         }
@@ -47,9 +62,30 @@ function App() {
   useEffect(() => {
     fetch("https://collectionapi.metmuseum.org/public/collection/v1/departments")
       .then(res => res.json())
-      .then(data => {setDepartments(data.departments)})
+      .then(data => {
+        setDepartments(data.departments)
+        let depts = data.departments.map(id => id.departmentId);
+        let deptId = [];
+        deptId.push(depts)
 
-  }, []);
+
+      return Promise.all(
+        deptId.map(i =>
+
+          fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/?departmentId=${[i]}`)
+            .then(res => {res.json()
+              console.log([i])
+            })
+      )
+      )
+      })
+        .then(results => {
+          let filteredDept = results.filter(obj => obj.primaryImage !== "");
+          setDepartmentData(filteredDept);
+          })
+
+      .catch(error => console.error("Error fetching object details:", error));
+    }, []);
 
 
   return (

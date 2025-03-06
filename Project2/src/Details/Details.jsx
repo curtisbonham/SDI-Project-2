@@ -4,16 +4,28 @@ import DetailsContext from '../DetailsContext.jsx'
 import './Details.css'
 
 export default  function Details() {
-const { imageArray, detailImage, setDetailImage, details, setDetails } = useContext(DetailsContext);
+const { imageArray, detailImage, setDetailImage, details, setDetails, departmentImageArray } = useContext(DetailsContext);
 const { id } = useParams();
 
 useEffect(() => {
-  const artwork = imageArray.find((item) => item.objectID === parseInt(id));
+  // First check the main imageArray
+  let artwork = imageArray.find((item) => item.objectID === parseInt(id));
+
+  // If not found in imageArray, check departmentImageArray
+  if (!artwork && departmentImageArray.length > 0) {
+    // Flatten the department arrays and search
+    departmentImageArray.forEach((departmentItems) => {
+      const found = departmentItems.find(
+        (item) => item.objectID === parseInt(id)
+      );
+      if (found) artwork = found;
+    });
+  }
   if (artwork) {
     setDetails(artwork);
     setDetailImage(artwork.primaryImage);
   }
-}, [id, imageArray, setDetails, setDetailImage]);
+}, [id, imageArray, departmentImageArray, setDetails, setDetailImage]);
 
 if (!details) {
   return <p className="loading">Loading...</p>;

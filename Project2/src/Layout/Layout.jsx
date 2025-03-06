@@ -19,7 +19,7 @@ const DraggableImage = ({ id, src, height, onDelete }) => {
     }),
   }));
 
-  console.log("Height: ", height);
+  // console.log("Height: ", height);
 
   return (
     <div className='dragable-el'>

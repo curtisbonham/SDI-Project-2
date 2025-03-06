@@ -8,7 +8,11 @@ const DetailsContext = React.createContext ({
     details: {},
     setDetails: ()=>{},
     departments: {},
-    setDepartments: () => {}
+    setDepartments: () => {},
+    departmentData: {},
+    setDepartmentData: () => {},
+    departmentImageArray: {},
+    setDepartmentImageArray: () => {}
 })
 
 export default DetailsContext

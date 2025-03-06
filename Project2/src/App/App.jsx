@@ -6,7 +6,6 @@ import Layout from '../Layout/Layout.jsx'
 import Saved from '../Saved/Saved.jsx'
 import Details from '../Details/Details.jsx'
 import DetailsContext from '../DetailsContext.jsx'
-import SavedContext from '../SavedContext.jsx'
 
 
 function App() {
@@ -16,7 +15,8 @@ function App() {
   const [departments, setDepartments] = useState([])
   const [departmentData, setDepartmentData] = useState([])
   const [savedArray, setSavedArray] = useState([])
-  // const [selectedDepartment, setSelectedDepartment] = useState(null);
+  const [departmentImageArray, setDepartmentImageArray] = useState([])
+
   const value = {
     imageArray,
     setImageArray,
@@ -28,13 +28,14 @@ function App() {
     setDepartments,
     departmentData,
     setDepartmentData,
-    // selectedDepartment,
-    // setSelectedDepartment
+    departmentImageArray,
+    setDepartmentImageArray
   }
   const savedValue = {
     savedArray,
     setSavedArray,
   }
+
 
   useEffect(() => {
     fetch("https://collectionapi.metmuseum.org/public/collection/v1/objects")
@@ -70,29 +71,40 @@ function App() {
       .then(data => {
         setDepartments(data.departments)
         let depts = data.departments.map(id => id.departmentId);
-        let deptId = [];
-        deptId.push(depts)
 
       return Promise.all(
-        deptId.map(i =>
-          fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=${[i]}&q=cat`)
-            .then(res => res.json())
-            .then(data => {
-              let deptOjbId = data.objectIDs
-              console.log(data.objectIDs)
+        depts.map((deptId) =>
+          fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=${deptId}&q=cat`)
+            .then((res) => res.json())
+            .then((data) => {
+              if (!data.objectIDs || data.objectIDs.length === 0) {
+                return [];
+              }
+              let deptObjIds = data.objectIDs;
+              // Take first 25 objects to avoid too many requests
+              let limitedIds = deptObjIds.slice(0, 25);
+
+              return Promise.all(
+                limitedIds.map((objId) =>
+                  fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${objId}`)
+                    .then((res) => res.json())
+                )
+              );
             })
-      )
-      )
-      })
+          )
+        )
         .then(results => {
+          let filteredDepartmentImages = results.map((departmentObjects) =>
+            departmentObjects.filter((obj) => obj && obj.primaryImage !== ""))
+          setDepartmentImageArray(filteredDepartmentImages)
+        })
+        .catch(error => console.error("Error fetching object details:", error));
+        })
 
-          })
-
-      .catch(error => console.error("Error fetching object details:", error));
     }, []);
 
-
   return (
+
 
   <SavedContext.Provider value={savedValue}>
   <DetailsContext.Provider value={value}>
@@ -166,7 +178,7 @@ function App() {
 
   </div>
 </DetailsContext.Provider>
- </SavedContext.Provider>
+</SavedContext.Provider>
 
   );
 }

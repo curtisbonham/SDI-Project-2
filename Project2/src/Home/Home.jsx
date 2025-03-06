@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import './Home.css';
 
 export default function Home({value}) {
+
 const [imageCount, setImageCount] = useState(24);
 const [isLoading, setIsLoading] = useState(true);
 const [selectedDepartment, setSelectedDepartment] = useState(null);

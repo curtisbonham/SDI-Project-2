@@ -44,7 +44,7 @@ return (
     {homeItemArray?.map((element, i) => {
       return (
         <div key={element.objectID}>
-          <Link to={`/details/${element.objectID}`}>
+          <Link to={`/details/${element.objectID}`} style={{textDecoration: 'none'}}>
             <div className="card-container">
               <img
                 className="card-img"

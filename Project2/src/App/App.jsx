@@ -15,6 +15,7 @@ function App() {
   const [details, setDetails] = useState([])
   const [departments, setDepartments] = useState([])
   const [departmentData, setDepartmentData] = useState([])
+  const [savedArray, setSavedArray] = useState([])
   // const [selectedDepartment, setSelectedDepartment] = useState(null);
   const value = {
     imageArray,
@@ -30,7 +31,10 @@ function App() {
     // selectedDepartment,
     // setSelectedDepartment
   }
-
+  const savedValue = {
+    savedArray,
+    setSavedArray,
+  }
 
   useEffect(() => {
     fetch("https://collectionapi.metmuseum.org/public/collection/v1/objects")
@@ -90,8 +94,8 @@ function App() {
 
   return (
 
-   <SavedContext.Provider value={value}>
-<DetailsContext.Provider value={value}>
+  <SavedContext.Provider value={savedValue}>
+  <DetailsContext.Provider value={value}>
 
   <div className="app-container">
     <input type="checkbox" id="nav-toggle" />

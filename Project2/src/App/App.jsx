@@ -8,7 +8,6 @@ import Details from '../Details/Details.jsx'
 import DetailsContext from '../DetailsContext.jsx'
 import SavedContext from '../SavedContext.jsx'
 
-
 function App() {
   const location = useLocation();
   const [imageArray, setImageArray] = useState([])
@@ -16,10 +15,17 @@ function App() {
   const [details, setDetails] = useState([])
   const [departments, setDepartments] = useState([])
   const [departmentData, setDepartmentData] = useState([])
-  const [savedArray, setSavedArray] = useState([]) //or go to local storage and grab what is there
+  const [savedArray, setSavedArray] = useState([])
   const [departmentImageArray, setDepartmentImageArray] = useState([])
 
-
+  const [imageCount, setImageCount] = useState(() => {
+    const saved = localStorage.getItem("imageCount");
+    return saved ? parseInt(saved) : 24;
+  });
+  const [selectedDepartment, setSelectedDepartment] = useState(() => {
+    const saved = localStorage.getItem("selectedDepartment");
+    return saved === "null" || !saved ? null : parseInt(saved);
+  });
 
 const value = {
 imageArray,
@@ -43,7 +49,7 @@ const savedValue = {
 savedArray,
 setSavedArray,
 }
-    
+
 addEventListener('beforeunload', () => {
   localStorage.setItem('savedItems', JSON.stringify(savedArray));
   });
@@ -53,15 +59,6 @@ addEventListener('beforeunload', () => {
     const storedItems = localStorage.getItem('savedItems');
     setSavedArray(JSON.parse(storedItems))}
   }, [])
-    // Add these new state variables
-  const [imageCount, setImageCount] = useState(() => {
-    const saved = localStorage.getItem("imageCount");
-    return saved ? parseInt(saved) : 24;
-  });
-  const [selectedDepartment, setSelectedDepartment] = useState(() => {
-    const saved = localStorage.getItem("selectedDepartment");
-    return saved === "null" || !saved ? null : parseInt(saved);
-  });
 
     // Save to localStorage when these values change
     useEffect(() => {

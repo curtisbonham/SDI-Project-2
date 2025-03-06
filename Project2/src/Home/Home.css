@@ -136,14 +136,36 @@ color: black;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   }
 
-.department-button.active {
-  background: #fff;
-  color: #333;
-  border-color: #ddd;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  font-weight: 500;
-}
+  #department-button.active,
+  #all-department-button.active {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
 
+  #department-button.active::before,
+  #all-department-button.active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: #60a5fa;
+    border-radius: 4px 0 0 4px;
+  }
+
+  #department-button.active::after,
+  #all-department-button.active::after {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #60a5fa;
+    font-size: 8px;
+  }
 /* Custom scrollbar for sidebar */
 .right-sidebar::-webkit-scrollbar {
   width: 4px;

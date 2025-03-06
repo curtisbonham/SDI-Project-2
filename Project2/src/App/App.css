@@ -101,12 +101,14 @@ body {
   width: 70px;
   top: 0;
   left: 0;
-  padding-top: 90px;
-  z-index: 35; /* Ensures sidebar is above content */
+  padding: 0;
+  z-index: 35;
   box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* Center vertically */
+  gap: 20px; /* Add consistent spacing between icons */
   transition: transform 0.3s ease;
 }
 
@@ -119,22 +121,26 @@ body {
   justify-content: center;
   color: #e2e8f0;
   text-decoration: none;
-  margin: 8px 0;
   border-radius: 12px;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   position: relative;
+  margin: 0;
 }
 
 /* Hover Effect for Sidebar Icons */
 .icon-sidebar a:hover {
-  background: rgba(255, 255, 255, 0.06);
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px) scale(1.05);
+  color: #60a5fa;
 }
 
 /* Active State for Sidebar Icons */
 .icon-sidebar a.active {
   background: rgba(255, 255, 255, 0.1);
   color: #60a5fa;
+  position: relative;
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(96, 165, 250, 0.3);
 }
 
 /* Active Sidebar Link Indicator */
@@ -145,11 +151,25 @@ body {
   top: 50%;
   transform: translateY(-50%);
   width: 3px;
-  height: 20px;
+  height: 24px;
   background: #60a5fa;
   border-radius: 0 4px 4px 0;
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
 }
 
+/* Add an after element for right side indicator */
+.icon-sidebar a.active::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 24px;
+  background: #60a5fa;
+  border-radius: 4px 0 0 4px;
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
+}
 /* Full Sidebar (Expands on Toggle) */
 .sidebar {
   background: #0f172a;
@@ -279,6 +299,18 @@ body {
     font-size: 1.25rem;
   }
 }
+
+.department-container{
+  display: flex;
+  align-content: left;
+  }
+
+#department-name{
+  color: #0f172a;
+}
+
+
+
 
 
 

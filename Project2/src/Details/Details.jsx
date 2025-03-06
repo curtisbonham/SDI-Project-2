@@ -10,6 +10,16 @@ const { id } = useParams();
 const {savedArray, setSavedArray} = useContext(SavedContext);
 
 useEffect(() => {
+
+  //Aqcuire our cached details first
+  const cachedDetails = localStorage.getItem(`artwork-${id}`);
+  if (cachedDetails){
+    const parsedDetails = JSON.parse(cachedDetails);
+    setDetails(parsedDetails);
+    setDetailImage(parsedDetails.primaryImage);
+    return;
+  }
+
   // First check the main imageArray
   let artwork = imageArray.find((item) => item.objectID === parseInt(id));
 
@@ -24,6 +34,8 @@ useEffect(() => {
     });
   }
   if (artwork) {
+    //Cache the details
+    localStorage.setItem(`artwork-${id}`, JSON.stringify(artwork));
     setDetails(artwork);
     setDetailImage(artwork.primaryImage);
   }
@@ -37,6 +49,10 @@ if (!details) {
 
 return (
   <div className="details-container">
+    <div className="department-container">
+      <h2 id="department-name" >All Departments</h2>
+    </div>
+
     <h1>{details.title}</h1>
     <div className="details-content">
       <div className="image-container">

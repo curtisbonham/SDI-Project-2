@@ -90,19 +90,17 @@ color: black;
 /* Right Sidebar - Modern Style */
 .right-sidebar {
   width: 280px;
-  background: white;
+  background: linear-gradient(135deg,#1e293b 0%,  #0f172a 100%);
   padding: 25px;
   position: fixed;
-  right: 20px;
-  top: 80px;
-  height: calc(100vh - 100px);
+  right: 1px;
+  top: 70px;
+  height: calc(100vh);
   overflow-y: auto;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .right-sidebar h3 {
-  color: #333;
+  color: whitesmoke;
   font-size: 1.2rem;
   margin: 0 0 20px 0;
   text-align: center;
@@ -111,31 +109,32 @@ color: black;
   border-bottom: 1px solid #eee;
 }
 
+
 .department-buttons {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-#department-button {
+#department-button, #all-department-button {
   padding: 12px 15px;
-  background: #f8f9fa;
+  background: lightgrey;
   border: 1px solid #eee;
   border-radius: 8px;
-  color: #555;
+  color: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
   font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  text-align: left;
+  text-align: center;
   font-family: "Copperplate";
+  opacity: 80%;
 }
 
-.department-button:hover {
-  background: #fff;
+#department-button:hover, #all-department-button:hover {
+  background: white;
   transform: translateY(-1px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  color: #333;
-}
+  }
 
 .department-button.active {
   background: #fff;

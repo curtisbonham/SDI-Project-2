@@ -44,13 +44,12 @@ useEffect(() => {
 if (!details) {
   return <p className="loading">Loading...</p>;
 }
-//{img.objectID, img.measurements, img.primaryImage}
 
 
 return (
   <div className="details-container">
     <div className="department-container">
-      <h2 id="department-name" >All Departments</h2>
+      <h2 id="department-name" ></h2>
     </div>
 
     <h1>{details.title}</h1>
@@ -72,7 +71,7 @@ return (
           objectName: details.objectName
         }
          ]
-         console.log(newSavedArray)
+
          setSavedArray (newSavedArray)
           }}
           ><p >💾</p></button>

@@ -1,9 +1,11 @@
 import SavedContext from '../SavedContext.jsx'
 import {useContext} from 'react'
 import {Link} from 'react-router-dom'
+import './Saved.css'
 
 export default function Saved() {
 const {savedArray, setSavedArray} = useContext(SavedContext);
+// let savedIsEmpty = savedArray == [];
 
   return (
     <>
@@ -34,6 +36,21 @@ const {savedArray, setSavedArray} = useContext(SavedContext);
       );
       })}
     </div>
+
+      <button
+        className="clear-btn"
+        onClick={()=>{
+          setSavedArray(null)
+        }}
+        >
+        Clear
+      </button>
+
+
+
+    {/* {savedIsEmpty? <button className='clear-btn' onClick={()=> {
+      setSavedArray([]);
+    }} >Clear</button> : null */}
     </>
   )
 }

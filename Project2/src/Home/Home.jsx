@@ -4,6 +4,8 @@ import './Home.css';
 
 export default function Home({value}) {
 const [isLoading, setIsLoading] = useState(true);
+const [departmentName, setDepartmentName] = useState("All Departments");
+
 const {
   imageCount,
   setImageCount,
@@ -11,10 +13,21 @@ const {
   setSelectedDepartment,
 } = value;
 
-useEffect(()=> {
+useEffect(() => {
+  // Update department name whenever selectedDepartment changes
+  if (selectedDepartment === null) {
+    setDepartmentName("All Departments");
+  } else {
+    const selectedDept = value.departments.find(
+      (dept) => dept.departmentId === selectedDepartment
+    );
+    if (selectedDept) {
+      setDepartmentName(selectedDept.displayName);
+    }
+  }
+}, [selectedDepartment, value.departments]);
 
-
-}, [selectedDepartment, imageCount]);
+useEffect(()=> {}, [selectedDepartment, imageCount]);
 
 let homeItemArray = selectedDepartment
 ? value.departmentImageArray[
@@ -24,8 +37,9 @@ let homeItemArray = selectedDepartment
   ]?.slice(0, value.imageCount) || []
 : value.imageArray.slice(0, imageCount);
 
-const handleDepartmentClick = (deptId) => {
+const handleDepartmentClick = (deptId, deptName) => {
   setSelectedDepartment(deptId);
+  setDepartmentName(deptName);
   setImageCount(24); // Reset image count when switching departments
   };
 
@@ -52,7 +66,7 @@ return (
 <>
 <h3 className="home-header"></h3>
     <div className="department-container">
-      <h2 id="department-name" >All Departments</h2>
+      <h2 id="department-name" >{departmentName}</h2>
     </div>
 
       <div className="gallery-container">
@@ -109,14 +123,11 @@ return (
 
     {/* Right Sidebar */}
     <div className="right-sidebar">
-      <h3>Departments</h3>
+      <h3 className="department-title">Departments</h3>
       <div className="department-buttons">
         <button
           id="all-department-button"
-          onClick={() => {
-            document.querySelector("department-name")
-            document.getElementById("department-name").innerHTML = "All Departments";
-          handleDepartmentClick(null)}}
+          onClick={() => {handleDepartmentClick(null, "All Departments")}}
           className={selectedDepartment === null ? "active" : ""}
           >All Departments
         </button>
@@ -124,10 +135,7 @@ return (
         {value.departments.map((dept) => (
           <button id='department-button'
               key={dept.departmentId}
-              onClick={() => {
-              document.querySelector("department-name")
-              document.getElementById("department-name").innerHTML = dept.displayName;
-                handleDepartmentClick(dept.departmentId)}}
+              onClick={() => {handleDepartmentClick(dept.departmentId, dept.displayName)}}
               className={selectedDepartment === dept.departmentId ? "active" : ""
                 }
               >

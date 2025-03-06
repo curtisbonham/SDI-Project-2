@@ -15,7 +15,8 @@ function App() {
   const [details, setDetails] = useState([])
   const [departments, setDepartments] = useState([])
   const [departmentData, setDepartmentData] = useState([])
-  const [savedArray, setSavedArray] = useState([])
+
+
   const [departmentImageArray, setDepartmentImageArray] = useState([])
 
   const [imageCount, setImageCount] = useState(() => {
@@ -25,6 +26,11 @@ function App() {
   const [selectedDepartment, setSelectedDepartment] = useState(() => {
     const saved = localStorage.getItem("selectedDepartment");
     return saved === "null" || !saved ? null : parseInt(saved);
+  });
+
+  const [savedArray, setSavedArray] = useState(() => {
+    const storedItems = localStorage.getItem('savedItems');
+    return storedItems === "null"? [] : JSON.parse(storedItems);
   });
 
 const value = {
@@ -53,12 +59,6 @@ setSavedArray,
 addEventListener('beforeunload', () => {
   localStorage.setItem('savedItems', JSON.stringify(savedArray));
   });
-
-  useEffect(() => {
-    if(savedArray.length == 0){
-    const storedItems = localStorage.getItem('savedItems');
-    setSavedArray(JSON.parse(storedItems))}
-  }, [])
 
     // Save to localStorage when these values change
     useEffect(() => {

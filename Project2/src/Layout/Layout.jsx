@@ -59,7 +59,7 @@ const DroppableCell = ({ index, image, onDrop, onDelete}) => {
 
 // Main Grid Component
 const DragDropGrid = () => {
-  const {savedArray, setsavedArray} = useContext(
+  const {savedArray, setSavedArray} = useContext(
   SavedContext
   );
 
@@ -95,12 +95,12 @@ const DragDropGrid = () => {
     <DndProvider backend={HTML5Backend}>
       <h3>Saved Pieces</h3>
       <div className='image-hold'>
-        {savedArray.map((image) => (
+        {savedArray?.map((image) => (
           <DraggableImage
           key={image.objectID}
           id={image.objectID}
           src={image.primaryImage}
-          height = {image.measurements[0]?.elementMeasurements.Height == undefined? 100 : image.measurements[0].elementMeasurements.Height * 10}
+          height = {image.measurements[0].elementMeasurements.Height == undefined? 100 : image.measurements[0].elementMeasurements.Height * 10}
           onDelete={handleDelete}
           />
           ))}

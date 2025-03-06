@@ -8,7 +8,6 @@ const {savedArray, setSavedArray} = useContext(SavedContext);
   return (
     <>
     <h3>Saved</h3>
-    {console.log(savedArray)}
     <div className="gallery-container">
     {savedArray?.map((element, i) => {
       return (

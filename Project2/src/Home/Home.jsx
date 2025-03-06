@@ -29,7 +29,6 @@ useEffect (() => {
 }), [value.imageArray, value.departmentImageArray]
 
 const loadMoreImages = () => {
-
   setImageCount(newCount => newCount + 25);
 }
 
@@ -48,7 +47,7 @@ return (
         {homeItemArray && homeItemArray.length > 0 ? (
           homeItemArray.map((element, i) => (
             <div key={element.objectID}>
-              <Link to={`/details/${element.objectID}`style={{textDecoration: 'none'}}>
+              <Link to={`/details/${element.objectID}`} style={{textDecoration: 'none'}}>
                 <div className="card-container">
                   <img
                     className="card-img"

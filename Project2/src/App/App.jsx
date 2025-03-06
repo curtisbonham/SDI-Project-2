@@ -6,6 +6,7 @@ import Layout from '../Layout/Layout.jsx'
 import Saved from '../Saved/Saved.jsx'
 import Details from '../Details/Details.jsx'
 import DetailsContext from '../DetailsContext.jsx'
+import SavedContext from '../SavedContext.jsx'
 
 
 function App() {

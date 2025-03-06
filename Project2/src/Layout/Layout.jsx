@@ -62,7 +62,7 @@ const DragDropGrid = () => {
   const {savedArray, setsavedArray} = useContext(
   SavedContext
   );
-console.log(savedArray)
+
   const [grid, setGrid] = useState(Array(2000).fill(null));
 
   const handleDrop = (imageId, index) => {
@@ -100,7 +100,7 @@ console.log(savedArray)
           key={image.objectID}
           id={image.objectID}
           src={image.primaryImage}
-          height = {image.measurements[0].elementMeasurements.Height == undefined? 100 : image.measurements[0].elementMeasurements.Height * 10}
+          height = {image.measurements[0]?.elementMeasurements.Height == undefined? 100 : image.measurements[0].elementMeasurements.Height * 10}
           onDelete={handleDelete}
           />
           ))}

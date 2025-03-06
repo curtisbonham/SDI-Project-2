@@ -15,7 +15,7 @@ function App() {
   const [details, setDetails] = useState([])
   const [departments, setDepartments] = useState([])
   const [departmentData, setDepartmentData] = useState([])
-  const [savedArray, setSavedArray] = useState([])
+  const [savedArray, setSavedArray] = useState([]) //or go to local storage and grab what is there
   const [departmentImageArray, setDepartmentImageArray] = useState([])
 
   const value = {
@@ -37,6 +37,15 @@ function App() {
     setSavedArray,
   }
 
+  addEventListener('beforeunload', () => {
+    localStorage.setItem('savedItems', JSON.stringify(savedArray));
+  });
+
+  useEffect(() => {
+    if(savedArray.length == 0){
+    const storedItems = localStorage.getItem('savedItems');
+    setSavedArray(JSON.parse(storedItems))}
+  }, [])
 
   useEffect(() => {
     fetch("https://collectionapi.metmuseum.org/public/collection/v1/objects")

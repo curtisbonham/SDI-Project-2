@@ -41,6 +41,12 @@ return (
     <div className="details-content">
       <div className="image-container">
         <button id='save-btn' onClick={()=>{
+          if (!details.measurements)
+            details.measurements = [{
+              elementMeasurements:{
+                Height: 10
+              }
+            }]
           let newSavedArray = [...savedArray,
          {objectID: details.objectID,
           measurements: details.measurements,
@@ -50,6 +56,7 @@ return (
           objectName: details.objectName
         }
          ]
+         console.log(newSavedArray)
          setSavedArray (newSavedArray)
           }}
           ><p >💾</p></button>

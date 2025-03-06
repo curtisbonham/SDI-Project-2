@@ -6,7 +6,9 @@ const DetailsContext = React.createContext ({
     detailImage: {},
     setDetailImage: ()=>{},
     details: {},
-    setDetails: ()=>{}
+    setDetails: ()=>{},
+    departments: {},
+    setDepartments: () => {}
 })
 
 export default DetailsContext

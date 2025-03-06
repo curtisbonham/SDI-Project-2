@@ -1,89 +1,77 @@
 import {useContext, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import DetailsContext from '../DetailsContext.jsx'
+import './Details.css'
 
 export default  function Details() {
+const { imageArray, detailImage, setDetailImage, details, setDetails } = useContext(DetailsContext);
+const { id } = useParams();
 
-  const {imageArray, detailImage, setDetailImage, details, setDetails} = useContext(DetailsContext)
+useEffect(() => {
+  const artwork = imageArray.find((item) => item.objectID === parseInt(id));
+  if (artwork) {
+    setDetails(artwork);
+    setDetailImage(artwork.primaryImage);
+  }
+}, [id, imageArray, setDetails, setDetailImage]);
 
-  // console.log(imageArray);
-
-  const {id} = useParams();
-
-
-  useEffect(() => {
-    if(!id || !imageArray.length) return;
-
-   const foundDetails =  imageArray?.find(obj => obj.id === parseInt(id));
-   if(foundDetails){
-   setDetails(foundDetails)
-   }
-
-    if(!detailImage){
-      setDetailImage(foundDetails.primaryImage)
-    }
-  }, [id, imageArray, setDetails, detailImage, setDetailImage])
-
-if(!details){
-  return <h1>Loading...</h1>
+if (!details) {
+  return <p className="loading">Loading...</p>;
 }
 
-console.log(details)
-  return (
-    <>
-    <h3>Details</h3>
-    <div>
-      <h2>Image Display Below</h2>
-      {/* {details.primaryImage ? (
-        <img src={detailImage} alt={details.title || "Image"}/>
-
-      ): (
-        <p>No Image Available</p>
-      )} */}
-
-
+return (
+  <div className="details-container">
+    <h1>{details.title}</h1>
+    <div className="details-content">
+      <div className="image-container">
+        <img
+          className="detail-image"
+          src={details.primaryImage}
+          alt={details.title}
+        />
+      </div>
+      <div className="info-container">
+        <p>
+          <strong>Artist:</strong>{" "}
+          {details.artistDisplayName || "Unknown Artist"}
+        </p>
+        <p>
+          <strong>Date:</strong> {details.objectDate || "Unknown Date"}
+        </p>
+        <p>
+          <strong>Medium:</strong> {details.medium || "Unknown Medium"}
+        </p>
+        <p>
+          <strong>Dimensions:</strong>{" "}
+          {details.dimensions || "Unknown Dimensions"}
+        </p>
+        <p>
+          <strong>Classification:</strong>{" "}
+          {details.classification || "Unknown Classification"}
+        </p>
+        <p>
+          <strong>Culture:</strong> {details.culture || "Unknown Culture"}
+        </p>
+        <p>
+          <strong>Period:</strong> {details.period || "Unknown Period"}
+        </p>
+        <p>
+          <strong>Repository:</strong>{" "}
+          {details.repository || "Unknown Repository"}
+        </p>
+        <p>
+          <strong>Genre:</strong>{" "}
+          {details.department || "Unknown Genre"}
+        </p>
+      </div>
     </div>
-    </>
-
-  )
+  </div>
+);
 }
+
+
+
+
 
 //primaryImage, additionalImages, classification, culture, period, department, objectDate title, artistDisplayName, artistDisplayBio, artistBeginDate, artistEndDate, dimension
 
-//const WalletDetails = ({value}) => {
-//   const { wallets, currentWalletImage, setCurrentWalletImage } = useContext(WalletContext);
-//   const { id } = useParams();
-//   const wallet = wallets?.find(w => w.id === parseInt(id));
-
-//   if (!wallet) {
-//     return <p>Loading...</p>;
-//   }
-
-//   if(!currentWalletImage){
-//     setCurrentWalletImage(wallet.image)
-//   }
-
-// return (
-// <>
-// <div>
-//   <h1>{wallet.name}</h1>
-//   <img className='MainImage' src={currentWalletImage} alt={wallet.name} style={{width: '400px'}}/>
-//   <img className='SmallImage' src={wallet.image} alt={wallet.name} style={{width: '200px'}} onClick={() => setCurrentWalletImage(wallet.image)}/>
-//   <img className='SmallImage' src={wallet.back} alt={wallet.name} style={{width: '200px'}} onClick={() => setCurrentWalletImage(wallet.back
-
-//   )}/>
-
-//   <div>
-//     Specifications:
-//     <p>Price: ${wallet.price}</p>
-//     <p>{wallet.info[0]}, {wallet.info[1]}, {wallet.info[2]}</p>
-//     <p>{wallet.info[3]}</p>
-//     <p>{wallet.info[4]}</p>
-//     <p>{wallet.info[5]}</p>
-//     <p>{wallet.info[6]}</p>
-//     <p>{wallet.info[7]}</p>
-//     <p>{wallet.info[8]}</p>
-//   </div>
-// </div>
-
-//   </>

@@ -3,17 +3,25 @@ import {Link} from 'react-router-dom'
 import './Home.css';
 
 export default function Home({value}) {
-const [imageCount, setImageCount] = useState(24);
 const [isLoading, setIsLoading] = useState(true);
-const [selectedDepartment, setSelectedDepartment] = useState(null);
+const {
+  imageCount,
+  setImageCount,
+  selectedDepartment,
+  setSelectedDepartment,
+} = value;
 
-// let homeItemArray = value.imageArray.slice(0,imageCount);
+useEffect(()=> {
+
+
+}, [selectedDepartment, imageCount]);
+
 let homeItemArray = selectedDepartment
 ? value.departmentImageArray[
     value.departments.findIndex(
       (dept) => dept.departmentId === selectedDepartment
     )
-  ]?.slice(0, imageCount) || []
+  ]?.slice(0, value.imageCount) || []
 : value.imageArray.slice(0, imageCount);
 
 const handleDepartmentClick = (deptId) => {
@@ -43,6 +51,10 @@ if(isLoading){
 return (
 <>
 <h3 className="home-header"></h3>
+    <div className="department-container">
+      <h2 id="department-name" >All Departments</h2>
+    </div>
+
       <div className="gallery-container">
         {homeItemArray && homeItemArray.length > 0 ? (
           homeItemArray.map((element, i) => (
@@ -101,7 +113,10 @@ return (
       <div className="department-buttons">
         <button
           id="all-department-button"
-          onClick={() => handleDepartmentClick(null)}
+          onClick={() => {
+            document.querySelector("department-name")
+            document.getElementById("department-name").innerHTML = "All Departments";
+          handleDepartmentClick(null)}}
           className={selectedDepartment === null ? "active" : ""}
           >All Departments
         </button>
@@ -109,7 +124,10 @@ return (
         {value.departments.map((dept) => (
           <button id='department-button'
               key={dept.departmentId}
-              onClick={() => handleDepartmentClick(dept.departmentId)}
+              onClick={() => {
+              document.querySelector("department-name")
+              document.getElementById("department-name").innerHTML = dept.displayName;
+                handleDepartmentClick(dept.departmentId)}}
               className={selectedDepartment === dept.departmentId ? "active" : ""
                 }
               >

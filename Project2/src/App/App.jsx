@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import './App.css';
 import Home from "../Home/Home.jsx";
 import Layout from '../Layout/Layout.jsx'
@@ -10,6 +10,7 @@ import SavedContext from '../SavedContext.jsx'
 
 
 function App() {
+  const location = useLocation();
   const [imageArray, setImageArray] = useState([])
   const [detailImage, setDetailImage] = useState('')
   const [details, setDetails] = useState([])
@@ -17,26 +18,50 @@ function App() {
   const [departmentData, setDepartmentData] = useState([])
   const [savedArray, setSavedArray] = useState([])
   const [departmentImageArray, setDepartmentImageArray] = useState([])
+    // Add these new state variables
+  const [imageCount, setImageCount] = useState(() => {
+    const saved = localStorage.getItem("imageCount");
+    return saved ? parseInt(saved) : 24;
+  });
+  const [selectedDepartment, setSelectedDepartment] = useState(() => {
+    const saved = localStorage.getItem("selectedDepartment");
+    return saved === "null" || !saved ? null : parseInt(saved);
+  });
 
-  const value = {
-    imageArray,
-    setImageArray,
-    detailImage,
-    setDetailImage,
-    details,
-    setDetails,
-    departments,
-    setDepartments,
-    departmentData,
-    setDepartmentData,
-    departmentImageArray,
-    setDepartmentImageArray
-  }
-  const savedValue = {
-    savedArray,
-    setSavedArray,
-  }
+    // Save to localStorage when these values change
+    useEffect(() => {
+      localStorage.setItem("imageCount", imageCount.toString());
+    }, [imageCount]);
 
+    useEffect(() => {
+      localStorage.setItem(
+        "selectedDepartment",
+        selectedDepartment === null ? "null" : selectedDepartment.toString()
+      );
+    }, [selectedDepartment]);
+
+    const value = {
+      imageArray,
+      setImageArray,
+      detailImage,
+      setDetailImage,
+      details,
+      setDetails,
+      departments,
+      setDepartments,
+      departmentData,
+      setDepartmentData,
+      departmentImageArray,
+      setDepartmentImageArray,
+      imageCount,
+      setImageCount,
+      selectedDepartment,
+      setSelectedDepartment
+    }
+    const savedValue = {
+      savedArray,
+      setSavedArray,
+    }
 
   useEffect(() => {
     fetch("https://collectionapi.metmuseum.org/public/collection/v1/objects")
@@ -120,18 +145,24 @@ function App() {
     </header>
 
     <nav className="icon-sidebar">
-      <Link to="/" className={location.pathname === "/" ? "active" : ""}>
-        <span className="nav-icon">🏠</span>
-      </Link>
+            <Link to="/" className={location.pathname === "/" ? "active" : ""}>
+              <span className="nav-icon">🏠</span>
+            </Link>
 
-      <Link to="/layout" className={location.pathname === "/layout" ? "active" : ""}>
-        <span className="nav-icon">📱</span>
-      </Link>
+            <Link
+              to="/layout"
+              className={location.pathname === "/layout" ? "active" : ""}
+            >
+              <span className="nav-icon">📱</span>
+            </Link>
 
-      <Link to="/saved" className={location.pathname === "/saved" ? "active" : ""}>
-        <span className="nav-icon">⭐</span>
-      </Link>
-    </nav>
+            <Link
+              to="/saved"
+              className={location.pathname === "/saved" ? "active" : ""}
+            >
+              <span className="nav-icon">⭐</span>
+            </Link>
+          </nav>
 
 
     <nav className="sidebar">
@@ -167,6 +198,7 @@ function App() {
         </Link>
       </div>
     </nav>
+
 
     <main className="main-content">
       <Routes>

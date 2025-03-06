@@ -2,10 +2,12 @@ import {useContext, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import DetailsContext from '../DetailsContext.jsx'
 import './Details.css'
+import SavedContext from '../SavedContext.jsx'
 
 export default  function Details() {
 const { imageArray, detailImage, setDetailImage, details, setDetails, departmentImageArray } = useContext(DetailsContext);
 const { id } = useParams();
+const {savedArray, setSavedArray} = useContext(SavedContext);
 
 useEffect(() => {
   // First check the main imageArray
@@ -30,12 +32,27 @@ useEffect(() => {
 if (!details) {
   return <p className="loading">Loading...</p>;
 }
+//{img.objectID, img.measurements, img.primaryImage}
+
 
 return (
   <div className="details-container">
     <h1>{details.title}</h1>
     <div className="details-content">
       <div className="image-container">
+        <button id='save-btn' onClick={()=>{
+          let newSavedArray = [...savedArray,
+         {objectID: details.objectID,
+          measurements: details.measurements,
+          primaryImage: details.primaryImage,
+          title: details.title,
+          artistDisplayName: details.artistDisplayName,
+          objectName: details.objectName
+        }
+         ]
+         setSavedArray (newSavedArray)
+          }}
+          ><p >💾</p></button>
         <img
           className="detail-image"
           src={details.primaryImage}

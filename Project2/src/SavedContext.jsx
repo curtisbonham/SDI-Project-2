@@ -1,8 +1,8 @@
 import React, {createContext} from 'react'
 
 const SavedContext = createContext ({
-    imageArray: {},
-    setImageArray:()=> {}
+    savedArray: [],
+    setSavedArray:() => {},
 })
 
 export default SavedContext

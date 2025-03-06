@@ -29,8 +29,15 @@ function App() {
   });
 
   const [savedArray, setSavedArray] = useState(() => {
-    const storedItems = localStorage.getItem('savedItems');
-    return storedItems === "null"? [] : JSON.parse(storedItems);
+    try{
+      const saved = localStorage.getItem('savedItems')
+      return saved ? JSON.parse(saved) : [];
+    }catch(error){
+      console.error("Error loading saved items:", error)
+      return[];
+    }
+    // const storedItems = localStorage.getItem('savedItems');
+    // return storedItems === "null"? [] : JSON.parse(storedItems);
   });
 
 const value = {

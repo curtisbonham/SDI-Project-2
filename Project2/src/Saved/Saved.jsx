@@ -6,7 +6,10 @@ import './Saved.css'
 export default function Saved() {
 const {savedArray, setSavedArray} = useContext(SavedContext);
 // let savedIsEmpty = savedArray == [];
-
+const handleClear = () => {
+  setSavedArray([]);
+  localStorage.setItem("savedItems", JSON.stringify([]));
+};
   return (
     <>
     <h3>Saved</h3>
@@ -36,21 +39,11 @@ const {savedArray, setSavedArray} = useContext(SavedContext);
       );
       })}
     </div>
-
-      <button
-        className="clear-btn"
-        onClick={()=>{
-          setSavedArray(null)
-        }}
-        >
-        Clear
-      </button>
-
-
-
-    {/* {savedIsEmpty? <button className='clear-btn' onClick={()=> {
-      setSavedArray([]);
-    }} >Clear</button> : null */}
+    {savedArray?.length > 0 && (
+        <button className="clear-btn" onClick={handleClear}>
+          Clear
+        </button>
+      )}
     </>
   )
 }

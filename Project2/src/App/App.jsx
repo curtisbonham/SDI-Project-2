@@ -68,20 +68,19 @@ function App() {
         let deptId = [];
         deptId.push(depts)
 
-
       return Promise.all(
         deptId.map(i =>
-
-          fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/?departmentId=${[i]}`)
-            .then(res => {res.json()
-              console.log([i])
+          fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=${[i]}&q=cat`)
+            .then(res => res.json())
+            .then(data => {
+              let deptOjbId = data.objectIDs
+              console.log(data.objectIDs)
             })
       )
       )
       })
         .then(results => {
-          let filteredDept = results.filter(obj => obj.primaryImage !== "");
-          setDepartmentData(filteredDept);
+
           })
 
       .catch(error => console.error("Error fetching object details:", error));

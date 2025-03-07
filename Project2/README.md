@@ -9,6 +9,13 @@ It can be installed by copying the below install line of code into the terminal.
 ``
  npm install react-dnd
 ``
+# Problem Statement
+
+Art lovers often struggle to curate and personalize their own gallery space when exploring museum collections. Existing platforms offer vast databases but lack customization and interactivity, making it difficult to create a space that truly reflects personal taste.
+
+This is an interactive web application that utilizes the MET API to let users curate their own digital gallery and customize display styles.
+
+Whether you’re a professional seeking a curated portfolio or a dreamer building a personal art haven, this platform makes exploring and personalizing art simple, engaging, and meaningful.
 
 # User Stories
 

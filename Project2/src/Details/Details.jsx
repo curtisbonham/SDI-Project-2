@@ -8,6 +8,7 @@ export default  function Details() {
 const { imageArray, detailImage, setDetailImage, details, setDetails, departmentImageArray } = useContext(DetailsContext);
 const { id } = useParams();
 const {savedArray, setSavedArray} = useContext(SavedContext);
+// const [isImageLoaded, setIsImageLoaded] = useState(false);
 
 useEffect(() => {
 

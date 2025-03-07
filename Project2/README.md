@@ -20,7 +20,7 @@ Dreamer Desmond wants to be able to customize wall sizing in the layout function
 
 # Exhibition Designer Emily
 
-![image.png](attachment:b112b2a9-c7ef-4149-8394-02378f2b941c:image.png)
+![image](./public/Emily.png)
 
 > "Designing spaces, crafting experiences.”
 >
@@ -66,11 +66,11 @@ Exhibition designer Emily wants to be able to save placements so that she can us
 
 Balancing the precision of curation with the unpredictability of life, this Cheyenne-based art curator brings a keen eye and a thoughtful approach to every exhibit. Whether selecting the perfect piece or managing joint custody of his two kids (and Tony the cat), he values both structure and spontaneity. With years of experience and a passion for storytelling through art, he strives to make every collection resonate on a deeper level.
 
-![image (1).png](attachment:3a6787fa-04ce-48fc-9aae-78fdbfc1b6b3:image_(1).png)
+![image](./public/ArmanNormal.png)
 
 Arman normally
 
-![image.png](attachment:2b76e9c8-9698-4040-9be5-8749161bf715:image.png)
+![image](./public/ArmanConcern.png)
 
 Arman when thinking about accessing the Met website
 
@@ -104,7 +104,7 @@ Art curator Arman wants to be able to compare details of pieces so that he can c
 
 # Dreamer Desmond (Wegenke)
 
-![image.png](attachment:3d33140b-4d08-4941-92ad-0474509b52a0:image.png)
+![image](./public/desmond.png)
 
 > "Power, prestige, and perfectly curated art.”
 >
@@ -134,3 +134,12 @@ A mastermind in the making, this 15-year-old Houston native has big plans—worl
 Theatrical, ambitious, mischievous, entitled
 
 Dreamer Desmond wants to be able to customize wall sizing in the layout function so that he can visualize his mansion gallery walls filled with Met art.
+
+# Wireframes
+![Wireframe1](./public/wireframe1.png)
+
+![Wireframe2](./public/wireframe2.png)
+
+# Kaban Board
+
+Follow this link to view our [Kaban](https://www.notion.so/Project-2-Art-Gallery-1ab3d40b29328027aecbe1ec0448d56a?pvs=4)

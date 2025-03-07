@@ -25,7 +25,7 @@
   position: absolute;
   bottom: 0%;
   right: 0;
-  background-color: transparent;
+  background-color: rgb(94, 94, 97) ;
   border: none;
   margin: 10px;
   color: rgb(0,0,0,0.5) ;
@@ -33,7 +33,6 @@
   height: 45px;
   border-radius: 50px;
   align-items: center;
-  border: 2px solid black;
   }
 
   #save-btn:hover{
@@ -42,15 +41,13 @@
 
     #save-btn:active{
      box-shadow: 5px 5px 5px white;
-     background-color: rgb(134, 134, 139) ;
+     background-color: transparent ;
     }
 
 
 #save-btn img {
   height: 40px;
-  color: rgb(145, 8, 8);
   padding: 5px;
-  border: 1px solid black;
-  margin: 5px;
+  margin-bottom: 15px;
 }
 

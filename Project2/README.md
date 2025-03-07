@@ -2,10 +2,13 @@
 
 **Required Downloads**
 
+React Drag and Drop (DND) is the functionality that allows the user to move images around on the screen to create a custom layout of art pieces.
+
+It can be installed by copying the below install line of code into the terminal.
+
 ``
  npm install react-dnd
 ``
-
 
 # User Stories
 

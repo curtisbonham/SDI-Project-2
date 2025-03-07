@@ -1,4 +1,13 @@
-## User Stories
+# Instructions
+
+**Required Downloads**
+
+``
+ npm install react-dnd
+``
+
+
+# User Stories
 
 Exhibition designer Emily wants to view a gallery and search for art pieces from the Met API, so that she can can be inspired for future exhibitions.
 
@@ -18,7 +27,7 @@ Dreamer Desmond wants to be able to save placements so that he can show his fath
 
 Dreamer Desmond wants to be able to customize wall sizing in the layout function so that he can visualize his mansion gallery walls filled with Met art.
 
-# Exhibition Designer Emily
+## Exhibition Designer Emily
 
 ![image](./public/Emily.png)
 
@@ -57,7 +66,7 @@ Exhibition designer Emily wants to see all art in their relative sizes, so she c
 
 Exhibition designer Emily wants to be able to save placements so that she can use them for a portfolio for future cliental.
 
-# Art Curator Arman
+## Art Curator Arman
 
 > "Bringing the Met to Cheyenne, one masterpiece at a time.”
 >
@@ -102,7 +111,7 @@ Art curator Arman wants to be able to browse art within similar genres so that h
 
 Art curator Arman wants to be able to compare details of pieces so that he can choose the perfect one for his clients.
 
-# Dreamer Desmond (Wegenke)
+## Dreamer Desmond (Wegenke)
 
 ![image](./public/desmond.png)
 

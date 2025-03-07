@@ -4,6 +4,7 @@ import DetailsContext from '../DetailsContext.jsx'
 import './Details.css'
 import SavedContext from '../SavedContext.jsx'
 
+
 export default  function Details() {
   const {
     imageArray,
@@ -66,6 +67,12 @@ const handleSave = () => {
     localStorage.setItem("savedItems", JSON.stringify(newSavedArray));
     setIsSaved(false);
   } else {
+    if (!details.measurements)
+      details.measurements = [{
+        elementMeasurements:{
+          Height: 10
+        }
+      }]
     const newSavedArray = [
       ...savedArray,
       {

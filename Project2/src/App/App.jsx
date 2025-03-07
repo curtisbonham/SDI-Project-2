@@ -163,21 +163,26 @@ addEventListener('beforeunload', () => {
 
     <nav className="icon-sidebar">
             <Link to="/" className={location.pathname === "/" ? "active" : ""}>
-              <span className="nav-icon">🏠</span>
+              <span className="nav-icon">
+              <img src="src/Assets/Home.png" />
+
+              </span>
             </Link>
 
             <Link
               to="/layout"
               className={location.pathname === "/layout" ? "active" : ""}
             >
-              <span className="nav-icon">📱</span>
+              <span className="nav-icon">
+              <img src="/src/Assets/layoutIcon.png" /></span>
             </Link>
 
             <Link
               to="/saved"
               className={location.pathname === "/saved" ? "active" : ""}
             >
-              <span className="nav-icon">⭐</span>
+              <span className="nav-icon">
+              <img src="/src/Assets/Heart.png" /></span>
             </Link>
           </nav>
 
@@ -193,7 +198,7 @@ addEventListener('beforeunload', () => {
           className={location.pathname === "/" ? "active" : ""}
           onClick={() => (document.getElementById("nav-toggle").checked = false)}
         >
-          <span className="nav-icon">🏠</span> Home
+          <span className="nav-icon"><img src="src/Assets/Home.png" /></span> Home
         </Link>
 
         {/* Layout Navigation Link */}
@@ -202,7 +207,7 @@ addEventListener('beforeunload', () => {
           className={location.pathname === "/layout" ? "active" : ""}
           onClick={() => (document.getElementById("nav-toggle").checked = false)}
         >
-          <span className="nav-icon">📱</span> Layout
+          <span className="nav-icon"><img src="/src/Assets/layoutIcon.png" /></span> Layout
         </Link>
 
         {/* Saved Items Navigation Link */}
@@ -211,7 +216,7 @@ addEventListener('beforeunload', () => {
           className={location.pathname === "/saved" ? "active" : ""}
           onClick={() => (document.getElementById("nav-toggle").checked = false)}
         >
-          <span className="nav-icon">⭐</span> Saved Items
+          <span className="nav-icon"><img src="/src/Assets/Heart.png" /></span> Saved Items
         </Link>
       </div>
     </nav>

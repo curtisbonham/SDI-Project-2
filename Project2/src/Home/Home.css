@@ -183,6 +183,8 @@ color: black;
   justify-content: center;
   min-height: 50vh;
   font-family: "Copperplate";
+  font-size: 25px;
+
 }
 
 .loader {
@@ -202,3 +204,20 @@ color: black;
     transform: rotate(360deg);
   }
 }
+
+/* Text animation moving back and forth */
+/* .loading-text {
+  -webkit-text-stroke: 2px white;
+  color: transparent;
+  background-image: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background-repeat: no-repeat;
+  background-position: -500px 0;
+  animation: backcolor 3s linear infinite alternate;
+  -webkit-background-clip: text;
+}
+
+@keyframes backcolor {
+  100% {
+    background-position: 0 0;
+  }
+} */

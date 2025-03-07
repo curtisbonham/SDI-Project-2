@@ -58,7 +58,7 @@ if(isLoading){
   return (
     <div className="loader-container">
     <div className="loader"></div>
-    <p>Loading...</p>
+    <p className="loading-text">Grabbing the art you wish you could own!</p>
   </div>)
 }
 

@@ -74,7 +74,7 @@ return (
 
          setSavedArray (newSavedArray)
           }}
-          ><p >💾</p></button>
+          ><img src="/src/Assets/Heart.png" /></button>
         <img
           className="detail-image"
           src={details.primaryImage}

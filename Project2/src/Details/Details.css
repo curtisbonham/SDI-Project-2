@@ -29,20 +29,28 @@
   border: none;
   margin: 10px;
   color: rgb(0,0,0,0.5) ;
-  padding: 0%;
+  padding: 5px 10px 20px 10px;
   height: 45px;
+  border-radius: 50px;
+  align-items: center;
+  border: 2px solid black;
   }
 
   #save-btn:hover{
-    color: rgb(0,0,0,1) ;
+    color: rgb(134, 134, 139) ;
     }
 
     #save-btn:active{
      box-shadow: 5px 5px 5px white;
+     background-color: rgb(134, 134, 139) ;
     }
 
 
-#save-btn p{
-  font-size: 40px;
+#save-btn img {
+  height: 40px;
+  color: rgb(145, 8, 8);
+  padding: 5px;
+  border: 1px solid black;
+  margin: 5px;
 }
 
